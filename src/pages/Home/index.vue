@@ -40,6 +40,7 @@
           v-model="state.message"
           :readonly="state.loading"
           type="text"
+          placeholder="请输入内容"
           @keydown="onEnter"
           @focus="state.isShowHistory = true"
         />
@@ -47,6 +48,7 @@
           {{ state.loading ? '发送中' : '发送' }}
         </div>
       </div>
+      <div v-if="state.isShowHistory" class="loading">响应时间大约在5~15s</div>
       <div
         v-if="state.searchHistory.length > 0"
         class="search-history"
@@ -251,6 +253,11 @@ const onEnter = (event: { keyCode: number }) => {
       padding-top: 16px;
       border-bottom: 1px solid #efefef;
 
+      &.user{
+        .message-item-content-text{
+          color: #609966;
+        }
+      }
       .error {
         color: red;
       }
@@ -306,7 +313,7 @@ const onEnter = (event: { keyCode: number }) => {
         color: #999;
       }
       &.active {
-        transform: translateY(-120px);
+        transform: translateY(-144px);
         opacity: 1;
       }
       .history-wrapper {
@@ -315,6 +322,7 @@ const onEnter = (event: { keyCode: number }) => {
         overflow-x: auto;
         padding: 8px 0;
         .item {
+          color: #333;
           flex: 0 0 auto;
           min-width: 50px;
           text-align: center;
@@ -332,6 +340,11 @@ const onEnter = (event: { keyCode: number }) => {
           }
         }
       }
+    }
+    .loading{
+      font-size: 12px;
+      color: #999;
+      margin-top: 8px;
     }
     .wrapper {
       width: 100%;
