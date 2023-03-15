@@ -335,6 +335,7 @@ const onEnter = (event: { keyCode: number }) => {
           overflow: hidden;
           text-overflow: ellipsis;
           cursor: pointer;
+          white-space: nowrap;
           &:hover {
             filter: brightness(0.95);
           }
