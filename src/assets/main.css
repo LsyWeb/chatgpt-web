@@ -1,0 +1,27 @@
+@import './base.css';
+
+#app {
+  width: 100%;
+  height: 100%;
+  margin: 0 auto;
+  font-weight: normal;
+}
+pre {
+  background: #282c34;
+  color: #abb2bf;
+  padding: 8px;
+  margin: 8px 0;
+  border-radius: 4px;
+  white-space: pre-wrap;
+}
+body {
+  height: 100vh;
+  background-image: linear-gradient(
+    45deg,
+    #609966 -50%,
+    #fff 30% 50%,
+    #609966 250%
+  );
+  background-repeat: no-repeat;
+  background-size: cover;
+}
