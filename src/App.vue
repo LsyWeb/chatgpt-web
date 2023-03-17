@@ -18,6 +18,10 @@ header {
   justify-content: space-between;
   align-items: center;
   a {
+    font-size: 24px;
+    i{
+      font-size: 24px;
+    }
     &:hover {
       text-decoration: underline;
       color: #609966;

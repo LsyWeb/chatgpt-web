@@ -111,8 +111,8 @@ const isChat = computed(() => state.messageList.length > 0);
 const parentMessageId = ref('');
 
 const onAddSearchHistory = (value: string) => {
-  if(state.searchHistory.length >= 5){
-    state.searchHistory.pop()
+  if (state.searchHistory.length >= 5) {
+    state.searchHistory.pop();
   }
   if (state.searchHistory.find((item) => item === value)) {
     state.searchHistory = state.searchHistory.filter((item) => item !== value);
@@ -144,7 +144,7 @@ const sendMessage = async () => {
     type: MessageType.User,
     content: state.message,
   });
- 
+
   onAddSearchHistory(state.message);
 
   const activeId = String(state.messageList.length + 1);
@@ -166,45 +166,46 @@ const sendMessage = async () => {
   state.loading = true;
   // 与云函数逻辑一样，有上下文 id 就传入
   if (!parentMessageId.value) {
-    try {
-      res = await cloud.invoke('sendMessage', { message: state.message });
-    } catch (err: any) {
-      state.loading = false;
-      state.messageList = state.messageList.map((item) => {
-        if (item.id === activeId) {
-          return {
-            ...item,
-            error: {
-              msg: err,
-            },
-          };
-        }
-        return item;
+    res = await cloud
+      .invoke('sendMessage', { message: state.message })
+      .catch((err) => {
+        state.loading = false;
+        state.messageList = state.messageList.map((item) => {
+          if (item.id === activeId) {
+            return {
+              ...item,
+              loading: false,
+              error: {
+                msg: err,
+              },
+            };
+          }
+          return item;
+        });
+        return;
       });
-      return;
-    }
   } else {
-    try {
-      res = await cloud.invoke('sendMessage', {
+    res = await cloud
+      .invoke('sendMessage', {
         message: state.message,
         parentMessageId: parentMessageId.value,
+      })
+      .catch((err) => {
+        state.loading = false;
+        state.messageList = state.messageList.map((item) => {
+          if (item.id === activeId) {
+            return {
+              ...item,
+              loading: false,
+              error: {
+                msg: err,
+              },
+            };
+          }
+          return item;
+        });
+        return;
       });
-    } catch (err: any) {
-      state.loading = false;
-      state.messageList = state.messageList.map((item) => {
-        if (item.id === activeId) {
-          return {
-            ...item,
-            loading: false,
-            error: {
-              msg: err,
-            },
-          };
-        }
-        return item;
-      });
-      return;
-    }
   }
   state.loading = false;
   parentMessageId.value = res.id;
@@ -253,8 +254,8 @@ const onEnter = (event: { keyCode: number }) => {
       padding-top: 16px;
       border-bottom: 1px solid #efefef;
 
-      &.user{
-        .message-item-content-text{
+      &.user {
+        .message-item-content-text {
           color: #609966;
         }
       }
@@ -307,7 +308,7 @@ const onEnter = (event: { keyCode: number }) => {
       opacity: 0;
       transition: all 0.3s;
       z-index: 1;
-  
+
       .title {
         font-size: 12px;
         color: #999;
@@ -342,7 +343,7 @@ const onEnter = (event: { keyCode: number }) => {
         }
       }
     }
-    .loading{
+    .loading {
       font-size: 12px;
       color: #999;
       margin-top: 8px;
