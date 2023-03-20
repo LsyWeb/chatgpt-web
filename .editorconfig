@@ -1,0 +1,5 @@
+root = true
+
+[*]
+printWidth = 120
+trailingComma = all

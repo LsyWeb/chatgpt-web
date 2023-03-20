@@ -7,14 +7,8 @@
             <div class="avatar">Bot</div>
             <div class="message-item-content">
               <div v-if="item.loading">加载中...</div>
-              <div v-else-if="item.error" class="error">
-                出错了：{{ item.error.msg }}，请重试
-              </div>
-              <div
-                v-else
-                class="message-item-content-text"
-                v-html="marked(item.content || '')"
-              ></div>
+              <div v-else-if="item.error" class="error">出错了：{{ item.error.msg }}，请重试</div>
+              <div v-else class="message-item-content-text" v-html="marked(item.content || '')"></div>
             </div>
           </div>
         </template>
@@ -49,19 +43,10 @@
         </div>
       </div>
       <div v-if="state.isShowHistory" class="loading">响应时间大约在5~15s</div>
-      <div
-        v-if="state.searchHistory.length > 0"
-        class="search-history"
-        :class="{ active: state.isShowHistory }"
-      >
+      <div v-if="state.searchHistory.length > 0" class="search-history" :class="{ active: state.isShowHistory }">
         <span class="title">搜索历史</span>
         <div class="history-wrapper">
-          <div
-            class="item"
-            v-for="item in state.searchHistory"
-            :key="item"
-            @click="state.message = item"
-          >
+          <div class="item" v-for="item in state.searchHistory" :key="item" @click="state.message = item">
             {{ item }}
           </div>
         </div>
@@ -102,9 +87,7 @@ const state = reactive({
   message: '',
   messageList: [] as Message[],
   isShowHistory: false,
-  searchHistory: JSON.parse(
-    localStorage.getItem(SEARCH_HISTORY_KEY) || '[]'
-  ) as string[],
+  searchHistory: JSON.parse(localStorage.getItem(SEARCH_HISTORY_KEY) || '[]') as string[],
 });
 const isChat = computed(() => state.messageList.length > 0);
 
@@ -123,14 +106,11 @@ const onAddSearchHistory = (value: string) => {
 watch(
   () => state.searchHistory,
   () => {
-    localStorage.setItem(
-      SEARCH_HISTORY_KEY,
-      JSON.stringify(state.searchHistory)
-    );
+    localStorage.setItem(SEARCH_HISTORY_KEY, JSON.stringify(state.searchHistory));
   },
   {
     deep: true,
-  }
+  },
 );
 
 const sendMessage = async () => {
@@ -166,24 +146,22 @@ const sendMessage = async () => {
   state.loading = true;
   // 与云函数逻辑一样，有上下文 id 就传入
   if (!parentMessageId.value) {
-    res = await cloud
-      .invoke('sendMessage', { message: state.message })
-      .catch((err) => {
-        state.loading = false;
-        state.messageList = state.messageList.map((item) => {
-          if (item.id === activeId) {
-            return {
-              ...item,
-              loading: false,
-              error: {
-                msg: err,
-              },
-            };
-          }
-          return item;
-        });
-        return;
+    res = await cloud.invoke('sendMessage', { message: state.message }).catch((err) => {
+      state.loading = false;
+      state.messageList = state.messageList.map((item) => {
+        if (item.id === activeId) {
+          return {
+            ...item,
+            loading: false,
+            error: {
+              msg: err,
+            },
+          };
+        }
+        return item;
       });
+      return;
+    });
   } else {
     res = await cloud
       .invoke('sendMessage', {

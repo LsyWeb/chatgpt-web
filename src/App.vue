@@ -19,7 +19,7 @@ header {
   align-items: center;
   a {
     font-size: 24px;
-    i{
+    i {
       font-size: 24px;
     }
     &:hover {
