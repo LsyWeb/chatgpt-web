@@ -1,0 +1,191 @@
+.home-container {
+  width: 100%;
+  height: calc(100% - 48px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  .content {
+    flex: 1 1 auto;
+    width: 80%;
+    min-width: 300px;
+    max-width: 800px;
+    overflow-y: auto;
+    padding: 0 16px;
+    .message-item {
+      display: flex;
+      justify-content: flex-start;
+      align-items: flex-start;
+      padding-bottom: 16px;
+      padding-top: 16px;
+      border-bottom: 1px solid #efefef;
+      width: 100%;
+      &.user {
+        .message-item-content-text {
+          color: #609966;
+        }
+      }
+      .error {
+        color: red;
+      }
+      .message-item-content {
+        padding-top: 12px;
+        display: flex;
+        align-items: flex-end;
+        flex: 1 1 auto;
+        .message-item-content-text{
+          width: 100%;
+          pre{
+            width: 100%;
+          }
+        }
+      }
+      .avatar {
+        width: 48px;
+        height: 48px;
+        flex: 0 0 auto;
+        border-radius: 50%;
+        background-color: #eee;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-right: 16px;
+      }
+    }
+  }
+  @media screen and (max-width: 500px) {
+    .content {
+      width: 100%;
+      .message-item {
+        flex-direction: column;
+      }
+      .avatar {
+        font-size: 12px;
+        width: 28px !important;
+        height: 28px !important;
+        border-radius: 4px !important;
+      }
+    }
+  }
+  .empty {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    flex: 1 1 auto;
+    text-align: center;
+    h1{
+      display: block;
+    }
+    .typed{
+      margin-top: 8px;
+      display: flex;
+      align-items: center;
+      font-size: 20px;
+    }
+   
+  }
+  .input-container {
+    width: 500px;
+    height: 96px;
+    padding: 8px 16px;
+    margin: 64px 0 48px 0;
+    flex: 0 0 auto;
+
+    .search-history {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      margin-bottom: 16px;
+      transform: translateY(-50px);
+      opacity: 0;
+      transition: all 0.3s;
+      z-index: 1;
+
+      .title {
+        font-size: 12px;
+        color: #999;
+      }
+      &.active {
+        transform: translateY(-144px);
+        opacity: 1;
+      }
+      .history-wrapper {
+        width: 100%;
+        display: flex;
+        overflow-x: auto;
+        padding: 8px 0;
+        .item {
+          color: #333;
+          flex: 0 0 auto;
+          min-width: 50px;
+          text-align: center;
+          max-width: 200px;
+          background-color: rgb(229, 245, 231);
+          padding: 4px 8px;
+          border-radius: 20px;
+          margin-right: 8px;
+          box-sizing: border-box;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          cursor: pointer;
+          white-space: nowrap;
+          &:hover {
+            filter: brightness(0.95);
+          }
+        }
+      }
+    }
+    .loading {
+      font-size: 12px;
+      color: #999;
+      margin-top: 8px;
+    }
+    .wrapper {
+      width: 100%;
+      height: 48px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border: 1px solid #e5e5e5;
+      border-radius: 4px;
+      padding: 8px;
+      box-sizing: border-box;
+      background-color: #fff;
+      z-index: 2;
+
+      input {
+        width: 100%;
+        height: 100%;
+        border: none;
+        outline: none;
+        border-radius: 4px;
+        font-size: 16px;
+        color: #666;
+      }
+      .send-btn {
+        width: 72px;
+        display: flex;
+        justify-content: center;
+        color: #999;
+        cursor: pointer;
+        user-select: none;
+        &:hover {
+          filter: brightness(0.4);
+        }
+        &:active {
+          filter: brightness(0.4);
+        }
+      }
+    }
+  }
+  @media screen and (max-width: 500px) {
+    .input-container {
+      width: 80%;
+      height: 36px;
+      input {
+        height: 36px;
+      }
+    }
+  }
+}
