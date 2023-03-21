@@ -1,7 +1,12 @@
 // eslint-disable-next-line no-undef
 module.exports = {
   root: true,
-  extends: ['plugin:vue/vue3-essential', 'eslint:recommended', '@vue/eslint-config-typescript', 'prettier'],
+  extends: [
+    'plugin:vue/vue3-essential',
+    'eslint:recommended',
+    '@vue/eslint-config-typescript',
+    'prettier',
+  ],
   parserOptions: {
     ecmaVersion: 'latest',
   },
@@ -15,7 +20,7 @@ module.exports = {
     'prettier/prettier': [
       'error',
       {
-        printWidth: 120,
+        printWidth: 80,
         trailingComma: 'all',
       },
     ],

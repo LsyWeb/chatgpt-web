@@ -7,14 +7,6 @@
   margin: 0 auto;
   font-weight: normal;
 }
-pre {
-  background: #282c34;
-  color: #abb2bf;
-  padding: 8px;
-  margin: 8px 0;
-  border-radius: 4px;
-  white-space: pre-wrap;
-}
 body {
   height: 100vh;
   background-image: linear-gradient(
