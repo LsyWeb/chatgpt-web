@@ -16,7 +16,7 @@
         ></path>
       </svg>
     </div>
-    <div class="avatar user" v-else>我</div>
+    <div class="avatar user" v-else>ME</div>
   </div>
 </template>
 
@@ -36,8 +36,10 @@ defineProps<{ type: 'user' | 'chatgpt' }>();
   align-items: center;
   margin-right: 16px;
   box-sizing: border-box;
-  &.user {
-    color: #609966;
+  .avatar {
+    &.user {
+      color: #609966;
+    }
   }
 
   .chatgpt-avatar {

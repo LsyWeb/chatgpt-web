@@ -1,6 +1,6 @@
 <template>
   <div class="home-container">
-    <div v-if="isChat" class="content" ref="scrollRef">
+    <div v-if="isChat" class="content" ref="scrollRef" @scroll="onScroll">
       <template v-for="item in state.messageList" :key="item.id">
         <MessageItem :message="item" />
       </template>
@@ -12,6 +12,7 @@
       </div>
     </div>
     <Search :loading="state.loading" @send-message="sendMessage" />
+    <BackTop v-if="state.isShowBackTop" @on-back-top="onBackTop" />
   </div>
 </template>
 
@@ -34,6 +35,7 @@ import { v4 } from 'uuid';
 import { MessageType, type Message } from '@/types';
 import MessageItem from '@/components/Message/index.vue';
 import Search from '@/components/Search/index.vue';
+import BackTop from '@/components/BackTop/index.vue';
 highjs.highlightAll();
 marked.setOptions({
   highlight: function (code) {
@@ -44,7 +46,7 @@ marked.setOptions({
 const state = reactive({
   loading: false,
   messageList: [] as Message[],
-  typedActiveId: '',
+  isShowBackTop: false,
 });
 const isChat = computed(() => state.messageList.length > 0); // 是否开始聊天
 
@@ -55,19 +57,46 @@ const observer = ref<MutationObserver | null>(null); // 监听滚动容器的cli
 
 // 监听滚动到底部
 watch([isChat, scrollRef], () => {
-  console.log('watch');
+  let falg = false;
   if (isChat.value && scrollRef.value!) {
     observer.value = new MutationObserver((entries) => {
-      console.log('entries', entries);
-      onScrollEnd();
+      if (!falg) {
+        requestAnimationFrame(() => {
+          console.log('entries', entries);
+          onScrollEnd();
+          falg = false;
+        });
+        falg = true;
+      }
     });
     observer.value.observe(scrollRef.value!, {
       childList: true,
       subtree: true,
+      attributeFilter: ['clientHeight'],
     });
   }
 });
 
+let flag = false;
+// 滚动到底部
+const onScroll = (e: any) => {
+  if (!flag) {
+    requestAnimationFrame(() => {
+      if (e?.target?.scrollTop > 100) {
+        state.isShowBackTop = true;
+      } else {
+        state.isShowBackTop = false;
+      }
+      flag = false;
+    });
+    flag = true;
+  }
+};
+// 回到顶部
+const onBackTop = () => {
+  scrollRef.value!.scrollTop = 0;
+};
+// 发送消息
 const sendMessage = async (searchValue: string) => {
   if (state.loading) return;
   if (!searchValue) {
@@ -93,7 +122,7 @@ const sendMessage = async (searchValue: string) => {
   nextTick(() => {
     // console.log(document.querySelector(`#loading-id-${activeId}`));
     loadingTyped = new Typed(`#loading-id-${activeId}`, {
-      strings: ['', '加载中'], //输入内容, 支持html标签
+      strings: ['', '加载中...'], //输入内容, 支持html标签
       typeSpeed: 50,
     });
   });
@@ -213,6 +242,6 @@ pre {
   padding: 8px;
   margin: 8px 0;
   border-radius: 4px;
-  white-space: pre-wrap;
+  overflow-x: auto;
 }
 </style>

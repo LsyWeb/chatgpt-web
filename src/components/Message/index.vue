@@ -48,8 +48,10 @@ defineProps<Props>();
   width: 100%;
 
   &:last-child {
-    padding-bottom: 48px;
     border: none;
+    .message-content {
+      padding-bottom: 96px;
+    }
   }
 
   &.user {
@@ -63,13 +65,15 @@ defineProps<Props>();
   }
 
   .message-content {
+    width: 100%;
     padding-top: 8px;
     display: flex;
     align-items: flex-end;
     flex: 1 1 auto;
-
+    padding-bottom: 16px;
     .message-content-text {
       width: 100%;
+      word-break: break-all;
 
       pre {
         width: 100%;

@@ -1,5 +1,22 @@
 <template>
   <div class="search-container">
+    <div
+      v-show="state.searchHistory.length > 0"
+      class="search-history"
+      :class="{ active: state.isShowHistory }"
+    >
+      <span class="title">搜索历史</span>
+      <div class="history-wrapper">
+        <div
+          class="item"
+          v-for="item in state.searchHistory"
+          :key="item"
+          @mousedown="onClickItem(item)"
+        >
+          {{ item }}
+        </div>
+      </div>
+    </div>
     <div class="wrapper">
       <input
         v-model="state.searchValue"
@@ -11,28 +28,15 @@
         @blur="state.isShowHistory = false"
         @focus="state.isShowHistory = true"
       />
-      <div class="send-btn" @click="onSearch">
+      <div
+        class="send-btn"
+        :class="{ active: state.searchValue.trim().length > 0 }"
+        @click="onSearch"
+      >
         {{ loading ? '发送中' : '发送' }}
       </div>
     </div>
     <div v-if="state.isShowHistory" class="loading">响应时间大约在5~15s</div>
-    <div
-      v-if="state.searchHistory.length > 0"
-      class="search-history"
-      :class="{ active: state.isShowHistory }"
-    >
-      <span class="title">搜索历史</span>
-      <div class="history-wrapper">
-        <div
-          class="item"
-          v-for="item in state.searchHistory"
-          :key="item"
-          @click.stop="onClickItem(item)"
-        >
-          {{ item }}
-        </div>
-      </div>
-    </div>
   </div>
 </template>
 
@@ -66,6 +70,7 @@ const onAddSearchHistory = (value: string) => {
 };
 
 const onClickItem = (item: string) => {
+  console.log(item);
   state.searchValue = item;
 };
 
@@ -107,18 +112,19 @@ const onSearch = () => {
   width: 80%;
   height: 48px;
   max-width: 600px;
+  border-radius: 4px;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+  background-color: #fff;
+  z-index: 100;
   .search-history {
     position: absolute;
     width: 100%;
     bottom: 100%;
-    max-height: 160px;
+    max-height: 168px;
     overflow-y: auto;
     display: flex;
     flex-direction: column;
-    opacity: 0;
     transition: all 0.3s;
-    z-index: 1;
     background-color: #fff;
     border: 1px solid #e5e5e5;
     border-radius: 4px;
@@ -129,10 +135,10 @@ const onSearch = () => {
       font-size: 12px;
       color: #999;
       padding-left: 8px;
+      padding-top: 8px;
     }
 
     &.active {
-      opacity: 1;
       transform: scaleY(1);
     }
 
@@ -155,6 +161,9 @@ const onSearch = () => {
         &:hover {
           background-color: #eee;
         }
+        &:active {
+          background-color: #eee;
+        }
       }
     }
   }
@@ -171,20 +180,16 @@ const onSearch = () => {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border: 1px solid #e5e5e5;
     border-radius: 4px;
     padding: 8px;
     box-sizing: border-box;
-    background-color: #fff;
     z-index: 2;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
 
     input {
       width: 100%;
       height: 100%;
       border: none;
       outline: none;
-      border-radius: 4px;
       font-size: 16px;
       color: #666;
     }
@@ -197,13 +202,17 @@ const onSearch = () => {
       cursor: pointer;
       user-select: none;
 
-      &:hover {
-        filter: brightness(0.4);
+      &.active {
+        color: #609966;
       }
 
-      &:active {
-        filter: brightness(0.4);
-      }
+      // &:hover {
+      //   filter: brightness(0.4);
+      // }
+
+      // &:active {
+      //   filter: brightness(0.4);
+      // }
     }
   }
 }

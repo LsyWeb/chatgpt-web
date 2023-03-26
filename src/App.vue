@@ -19,6 +19,8 @@ header {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  position: sticky;
+  top: 0;
   a {
     font-size: 24px;
     i {
