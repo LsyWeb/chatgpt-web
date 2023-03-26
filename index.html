@@ -6,17 +6,34 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <!-- 网站开启对 web app 程序的支持 具体表现为去除浏览器地址栏和底部导航栏 -->
     <meta name="apple-mobile-web-app-capable" content="yes" />
-    <meta name="apple-mobile-web-app-status-bar-style" content="default">
-      <!-- 通用的浏览器 -->
-  <meta name='full-screen' content='true' />
-  <!-- QQ浏览器（X5内核）独有的META -->
-  <meta name='x5-fullscreen' content='true' />
-  <!-- 360浏览器独有的 -->
-  <meta name='360-fullscreen' content='true' />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <!-- 通用的浏览器 -->
+    <meta name="full-screen" content="true" />
+    <!-- QQ浏览器（X5内核）独有的META -->
+    <meta name="x5-fullscreen" content="true" />
+    <!-- 360浏览器独有的 -->
+    <meta name="360-fullscreen" content="true" />
     <title>ChatGPT App</title>
+    <style>
+      :root {
+        --vh: 1vh;
+      }
+    </style>
   </head>
+
   <body>
     <div id="app"></div>
+    <script>
+      !(function (n, e) {
+        function setViewHeight() {
+          var windowVH = e.innerHeight / 100;
+          n.documentElement.style.setProperty('--vh', windowVH + 'px');
+        }
+        var i = 'orientationchange' in window ? 'orientationchange' : 'resize';
+        n.addEventListener('DOMContentLoaded', setViewHeight);
+        e.addEventListener(i, setViewHeight);
+      })(document, window);
+    </script>
     <script type="module" src="/src/main.ts"></script>
   </body>
 </html>
