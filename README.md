@@ -1,14 +1,17 @@
-# web-chatgpt
+# chatgpt-web
 一个简易的网页版chatgpt，预览：[https://chatgpt.liushuaiyang.com](http://chatgpt.liushuaiyang.com)
+> 如果你喜欢这个项目，请star✨
 
-下面讲一讲怎么实现的
+# 下面讲一讲怎么实现的
+难点：chatgpt的sdk在国内无法调用
+> 解决办法：使用外国服务器的进行部署，[laf](https://laf.dev/) 使用的是新加坡的服务器，刚好可以满足我们的要求
 
 ## 接口开发
 项目中使用的接口使用的是一个云开发平台：[laf](https://laf.dev/) 平台会赠送一些免费额度
 > 具体操作可以参考  [三分钟搭建一个自己的 ChatGPT ](https://juejin.cn/post/7209839961439371320)
 
 ## 前端开发
-- 可以自己开发全部页面，不过多阐述
+- 可以自己开发全部页面，不过多阐述，在页面中调用云开发平台开放的接口就行了
 - 不想自己动手，可以直接 fork 项目代码到自己的仓库
    - 在本地把项目克隆下来 `git clone`，下载依赖 `yarn`
    - 在项目的根目录新建一个 `.env.local` 或者 `.env` 文件，然后添加一个环境变量[（vite设置环境变量）](https://cn.vitejs.dev/guide/env-and-mode.html#env-variables-and-modes) `VITE_LAF_APP_ID = '你的云开发平台的appid' `
