@@ -20,7 +20,7 @@
 ## 部署
 - 使用 [vercel](https://vercel.com/) 一键部署，并且支持自动化部署（在github提交代码，自动部署）
 
-[![Deploy with Vercel](https://vercel.com/button?utm_source=busiyi&utm_campaign=oss)](https://vercel.com/new/clone?utm_source=busiyi&utm_campaign=oss&repository-url=https://github.com/LsyWeb/chatgpt-web&env=VITE_LAF_APP_ID)
+  [![Deploy with Vercel](https://vercel.com/button?utm_source=busiyi&utm_campaign=oss)](https://vercel.com/new/clone?utm_source=busiyi&utm_campaign=oss&repository-url=https://github.com/LsyWeb/chatgpt-web&env=VITE_LAF_APP_ID)
 
 - [vercel](https://vercel.com/) 部署流程：
   - 登录网站，注册账号
