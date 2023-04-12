@@ -18,7 +18,11 @@
    - 配置好之后直接：`yarn start`
 
 ## 部署
-- **推荐使用** [vercel](https://vercel.com/) 进行部署，可以设置部署时的环境变量，并且支持自动化部署（在github提交代码，自动部署）
+- 使用 [vercel](https://vercel.com/) 一键部署，并且支持自动化部署（在github提交代码，自动部署）
+
+[![Deploy with Vercel](https://vercel.com/button?utm_source=busiyi&utm_campaign=oss)](https://vercel.com/new/clone?utm_source=busiyi&utm_campaign=oss&repository-url=https://github.com/LsyWeb/chatgpt-web&env=VITE_LAF_APP_ID)
+
+- [vercel](https://vercel.com/) 部署流程：
   - 登录网站，注册账号
   - 创建项目，导入刚刚fork的github仓库
   - 填写项目名、构建部分不需要设置（vercel会检测到你的项目时vite，自动帮你设置）
