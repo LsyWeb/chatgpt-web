@@ -25,7 +25,7 @@
 - [vercel](https://vercel.com/) 部署流程：
   - 登录网站，注册账号
   - 创建项目，导入刚刚fork的github仓库
-  - 填写项目名、构建部分不需要设置（vercel会检测到你的项目时vite，自动帮你设置）
+  - 填写项目名、构建部分不需要设置（vercel会检测到你的项目是vite，自动帮你设置）
   - **重点来了，设置环境变量**：`name: VITE_LAF_APP_ID` `value: 你的云开发平台的appid`，设置完后，vercel会帮你生成一个.env文件，用于vite构建时获取，并且，value会被vercel加密
   ![alt env](./docs/img/env.png)
   - 点击部署，稍等片刻，就部署成功了，vercel会自动生成一个域名，你也可以绑定自定义域名
