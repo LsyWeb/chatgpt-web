@@ -12,3 +12,9 @@ export type Message = {
     msg?: string;
   };
 };
+
+export type ApiResponseType<T> = {
+  code: number;
+  data: T;
+  message: string;
+};

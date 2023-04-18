@@ -26,7 +26,6 @@ import {
   ref,
   watch,
 } from 'vue';
-import { Cloud } from 'laf-client-sdk';
 import { marked } from 'marked';
 import 'highlight.js/styles/atom-one-dark.css';
 import highjs from 'highlight.js';
@@ -36,6 +35,7 @@ import { MessageType, type Message } from '@/types';
 import MessageItem from '@/components/Message/index.vue';
 import Search from '@/components/Search/index.vue';
 import BackTop from '@/components/BackTop/index.vue';
+import { fetchSendMessage } from '@/api';
 highjs.highlightAll();
 marked.setOptions({
   highlight: function (code, lang) {
@@ -45,8 +45,6 @@ marked.setOptions({
     return highjs.highlightAuto(code).value;
   },
 });
-
-const APP_ID = import.meta.env.VITE_LAF_APP_ID;
 
 const state = reactive({
   loading: false,
@@ -69,7 +67,6 @@ watch([isChat, scrollRef], () => {
     observer.value = new MutationObserver((entries) => {
       if (!falg) {
         requestAnimationFrame(() => {
-          console.log('entries', entries);
           onScrollEnd();
           falg = false;
         });
@@ -135,38 +132,28 @@ const sendMessage = async (searchValue: string) => {
     });
   });
 
-  const cloud = new Cloud({
-    baseUrl: `https://${APP_ID}.laf.dev`,
-    getAccessToken: () => '',
-    timeout: 180000, // 由于一些问题可能会导致chatgpt思考很长时间，所以接口的超时时长要设长一些
+  state.loading = true;
+
+  // 发送消息
+  const res = await fetchSendMessage(searchValue).catch((err) => {
+    state.loading = false;
+    state.messageList = state.messageList.map((item) => {
+      if (item.id === activeId) {
+        return {
+          ...item,
+          loading: false,
+          error: {
+            msg: err,
+          },
+        };
+      }
+      return item;
+    });
+    return err;
   });
 
-  state.loading = true;
-  // 发送消息
-  const res = await cloud
-    .invoke('sendMessage', {
-      message: searchValue,
-      parentMessageId: parentMessageId.value,
-    })
-    .catch((err) => {
-      state.loading = false;
-      state.messageList = state.messageList.map((item) => {
-        if (item.id === activeId) {
-          return {
-            ...item,
-            loading: false,
-            error: {
-              msg: err,
-            },
-          };
-        }
-        return item;
-      });
-      return;
-    });
-
-  parentMessageId.value = res.id;
-  const content = res.text;
+  parentMessageId.value = res.data.id;
+  const content = res.data.text;
 
   state.messageList = state.messageList.map((item) => {
     if (item.id === activeId) {
