@@ -31,7 +31,6 @@
   - 创建项目，导入刚刚fork的github仓库
   - 填写项目名、构建部分不需要设置（vercel会检测到你的项目是vite，自动帮你设置）
   - **重点来了，设置环境变量**：`name: VITE_AIR_CODE_SEND_MESSAGE_URL` `value: 你的云函数访问路径`，设置完后，vercel会帮你生成一个.env文件，用于vite构建时获取，并且，value会被vercel加密
-  ![alt env](./docs/img/env.png)
   - 点击部署，稍等片刻，就部署成功了，vercel会自动生成一个域名，你也可以绑定自定义域名
   - 绑定自定义域名：vercel在国内是被墙的，没有代理无法访问，想要解决这个问题：你需要绑定一个自定义域名，绑定完后vercel会自动给你的域名加上一个SSL证书，然后就可以在国内使用https的方式进行访问，速度也非常快
 - github Pages，不推荐使用，因为这样会把你的 `appid` 暴露到github上
