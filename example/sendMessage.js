@@ -1,6 +1,5 @@
-const aircode = require('aircode');
-
 module.exports = async function (params) {
+  // 由于*chatgpt*这个库里面用的是18+版本的node，而云函数目前只支持16.8版本的，需要引入fetch库
   const fetch = await import('node-fetch');
   const { Headers, Request, Response } = fetch;
   if (!globalThis.fetch) {
@@ -12,7 +11,6 @@ module.exports = async function (params) {
   const { ChatGPTAPI } = await import('chatgpt');
 
   const { message, parentMessageId } = params;
-  console.log(process.env.CHAT_GPT_API_KEY, 'env');
 
   const api = new ChatGPTAPI({ apiKey: process.env.CHAT_GPT_API_KEY });
   let result;

@@ -136,6 +136,7 @@ const sendMessage = async (searchValue: string) => {
 
   // 发送消息
   const res = await fetchSendMessage(searchValue).catch((err) => {
+    console.log(err);
     state.loading = false;
     state.messageList = state.messageList.map((item) => {
       if (item.id === activeId) {
@@ -152,8 +153,8 @@ const sendMessage = async (searchValue: string) => {
     return err;
   });
 
-  parentMessageId.value = res.data.id;
-  const content = res.data.text;
+  parentMessageId.value = res.data?.id;
+  const content = res.data?.text;
 
   state.messageList = state.messageList.map((item) => {
     if (item.id === activeId) {
