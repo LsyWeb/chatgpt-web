@@ -3,7 +3,7 @@
 
 > 如果你喜欢这个项目，请star✨
 
-> 如果你发现一些问题，欢迎提出issues、pr
+> 如果你发现一些问题或是优化建议，欢迎提出issues、pr
 
 # 下面讲一讲怎么实现的
 难点：chatgpt的sdk在国内无法调用
@@ -13,15 +13,21 @@
 
 > 这里有一些免费的apikey、chatgpt账号，但不稳定[传送门](https://freeopenai.xyz/)，建议使用自己的（自行百度）
 
-## 接口开发
-项目中使用的接口使用的是一个云开发平台：[airCode](https://docs-cn.aircode.io/) 平台会赠送一些免费额度
+## 后端服务
+项目中使用的后端服务使用的是一个云开发平台：[airCode](https://docs-cn.aircode.io/) 平台会赠送一些免费额度
 > 主要是利用了云函数的功能：[代码参考](./example/sendMessage.js)，可以直接复制使用，注意：设置环境变量`CHAT_GPT_API_KEY` = 你的 api_key
 
 ## 前端开发
-- 可以自己开发前端页面，不过多阐述，在页面中调用云开发平台开放的接口就行了
-- 不想自己动手，可以直接 fork 项目代码到自己的仓库
-   - 在本地把项目克隆下来 `git clone`，下载依赖 `yarn`
-   - 在项目的根目录新建一个 `.env.local` 或者 `.env` 文件，然后添加一个环境变量[（vite设置环境变量）](https://cn.vitejs.dev/guide/env-and-mode.html#env-variables-and-modes) `VITE_AIR_CODE_SEND_MESSAGE_URL = '你的云函数访问路径' `
+- 可以自己开发前端页面，不过多阐述，在页面中调用云开发平台云函数的接口就行了
+- 不想自己动手
+
+   - 一键部署（点击下方按钮）
+     - [![Deploy with Vercel](https://vercel.com/button?utm_source=busiyi&utm_campaign=oss)](https://vercel.com/new/clone?utm_source=busiyi&utm_campaign=oss&repository-url=https://github.com/LsyWeb/chatgpt-web&env=VITE_AIR_CODE_SEND_MESSAGE_URL)
+   - 本地开发
+  
+      - 可以直接 fork 项目代码到自己的仓库
+      - 在本地把项目克隆下来 `git clone`，下载依赖 `yarn`
+      - 在项目的根目录新建一个 `.env.local` 或者 `.env` 文件，然后添加一个环境变量[（vite设置环境变量）](https://cn.vitejs.dev/guide/env-and-mode.html#env-variables-and-modes) `VITE_AIR_CODE_SEND_MESSAGE_URL = '你的云函数访问路径' `
    - 配置好之后直接：`yarn start`
 
 ## 部署
