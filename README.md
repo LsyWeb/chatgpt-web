@@ -1,5 +1,5 @@
 # chatgpt-web
-一个简易的网页版chatgpt，预览：[https://chatgpt.liushuaiyang.com](http://chatgpt.liushuaiyang.com)
+一个简易的网页版chatgpt，预览：[https://chatgpt.web.liushuaiyang.com](http://chatgpt.liushuaiyang.com)
 
 > 如果你喜欢这个项目，请star✨
 
