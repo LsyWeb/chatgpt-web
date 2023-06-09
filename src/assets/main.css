@@ -1,14 +1,19 @@
 @import './base.css';
 @import './icon.css';
 
+html{
+  height: 100%;
+}
+
 #app {
   width: 100%;
   height: 100%;
   margin: 0 auto;
   font-weight: normal;
 }
+
 body {
-  height: 100vh;
+  height: 100%;
   background-image: linear-gradient(
     45deg,
     #609966 -50%,
