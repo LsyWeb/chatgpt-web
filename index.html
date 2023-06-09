@@ -15,25 +15,11 @@
     <meta name="360-fullscreen" content="true" />
     <title>ChatGPT App</title>
     <style>
-      :root {
-        --vh: 1vh;
-      }
     </style>
   </head>
 
   <body>
     <div id="app"></div>
-    <script>
-      !(function (n, e) {
-        function setViewHeight() {
-          var windowVH = e.innerHeight / 100;
-          n.documentElement.style.setProperty('--vh', windowVH + 'px');
-        }
-        var i = 'orientationchange' in window ? 'orientationchange' : 'resize';
-        n.addEventListener('DOMContentLoaded', setViewHeight);
-        e.addEventListener(i, setViewHeight);
-      })(document, window);
-    </script>
     <script type="module" src="/src/main.ts"></script>
   </body>
 </html>
