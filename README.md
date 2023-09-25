@@ -11,7 +11,7 @@
 
 ## 获取openai的apikey
 
-> 这里有一些免费的apikey、chatgpt账号，但不稳定[传送门](https://freeopenai.xyz/)，建议使用自己的（自行百度）
+> 这里有一些免费的apikey、chatgpt账号，但不稳定，[传送门](https://www.freeopenaikey.com/)，建议使用自己的（自行百度）
 
 ## 后端服务
 项目中使用的后端服务使用的是一个云开发平台：[airCode](https://docs-cn.aircode.io/) 平台会赠送一些免费额度
