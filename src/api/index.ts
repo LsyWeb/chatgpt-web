@@ -1,14 +1,27 @@
 import axios from './axios';
 import type { ApiResponseType } from '../types';
 
-const url = import.meta.env.VITE_AIR_CODE_SEND_MESSAGE_URL;
+const baseUrl = import.meta.env.VITE_GPT_BASE_URL;
+const apiKey = import.meta.env.VITE_GPT_API_KEY;
+
+export type SendMessage = {
+  role: string;
+  content: string;
+};
 
 export const fetchSendMessage = async (
-  message: string,
-  parentMessageId?: string,
+  messages: SendMessage[],
 ): Promise<ApiResponseType<any>> => {
-  return axios.post(url, {
-    message,
-    parentMessageId,
-  });
+  return axios.post(
+    '/api/sendMessage',
+    {
+      messages,
+    },
+    {
+      baseURL: baseUrl,
+      headers: {
+        Authorization: `${apiKey}`,
+      },
+    },
+  );
 };

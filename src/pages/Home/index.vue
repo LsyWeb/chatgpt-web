@@ -53,8 +53,6 @@ const state = reactive({
 });
 const isChat = computed(() => state.messageList.length > 0); // 是否开始聊天
 
-const parentMessageId = ref(); // 上下文消息id
-
 const scrollRef = ref<HTMLElement | null>(null); // 滚动容器
 const observer = ref<MutationObserver | null>(null); // 监听滚动容器的clientHeight变化
 
@@ -135,7 +133,16 @@ const sendMessage = async (searchValue: string) => {
   state.loading = true;
 
   // 发送消息
-  const res = await fetchSendMessage(searchValue).catch((err) => {
+  const res = await fetchSendMessage([
+    ...state.messageList
+      .filter((it) => it.content)
+      .map((item) => {
+        return {
+          role: item.type === MessageType.User ? 'user' : 'system',
+          content: item.content || '',
+        };
+      }),
+  ]).catch((err) => {
     console.log(err);
     state.loading = false;
     state.messageList = state.messageList.map((item) => {
@@ -153,8 +160,7 @@ const sendMessage = async (searchValue: string) => {
     return err;
   });
 
-  parentMessageId.value = res.data?.id;
-  const content = res.data?.text;
+  const content = res.data?.data;
 
   state.messageList = state.messageList.map((item) => {
     if (item.id === activeId) {

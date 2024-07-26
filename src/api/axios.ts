@@ -4,10 +4,10 @@ const instance = axios.create();
 
 instance.interceptors.response.use(
   (res) => {
-    if (res.data.code === 0) {
-      return res.data;
+    if (res.data.success) {
+      return res;
     } else {
-      return Promise.reject(res.data);
+      return Promise.reject(res);
     }
   },
   (error) => {
