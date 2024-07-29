@@ -15,12 +15,15 @@ export const fetchSendMessage = async (
   return axios.post(
     '/api/sendMessage',
     {
-      messages,
+      model: 'qwen-max',
+      input: {
+        messages,
+      },
     },
     {
       baseURL: baseUrl,
       headers: {
-        Authorization: `${apiKey}`,
+        Authorization: `Bearer ${apiKey}`,
       },
     },
   );

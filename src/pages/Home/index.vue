@@ -157,7 +157,7 @@ const sendMessage = async (searchValue: string) => {
       }
       return item;
     });
-    return err;
+    return err.data;
   });
 
   const content = res.data?.data;
